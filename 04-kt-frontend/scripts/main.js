@@ -1,6 +1,5 @@
 requirejs.config({
     paths: {
-        kotlin: './kotlin',
         ktjs_example04: '../build/bundle/ktjs_example04.bundle'
     }
 });

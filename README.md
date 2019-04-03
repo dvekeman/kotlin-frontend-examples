@@ -387,13 +387,14 @@ We'll now get a bundle as output: **build/bundle/ktjs_example04.bundle.js**. To 
 
 ```
 <head>
-    <script type="text/javascript" src="./scripts/kotlin.js"></script>
     <script type="text/javascript" src="build/bundle/ktjs_example04.bundle.js"></script>
 
     <!-- Important: load this after the plain js (scripts/kotlin.js and build/js/ktsj_example03.js -->
     <script data-main="./scripts/main.js"  src="./scripts/require.js"></script>
 </head>
 ```
+
+Note that we no longer need to load the `kotlin.js` dependency separately!
 
 **scripts/main.js**
 
