@@ -16,7 +16,6 @@ dependencies {
 }
 
 tasks {
-
     "compileKotlin2Js"(Kotlin2JsCompile::class) {
         kotlinOptions {
             outputFile = "${project.buildDir.path}/js/ktjs_example02.js"
@@ -26,5 +25,4 @@ tasks {
             main = "call"
         }
     }
-
 }

@@ -19,7 +19,6 @@ dependencies {
 }
 
 tasks {
-
     "compileKotlin2Js"(Kotlin2JsCompile::class) {
         kotlinOptions {
             outputFile = "${project.buildDir.path}/js/ktjs_example04.js"
@@ -32,7 +31,6 @@ tasks {
 }
 
 kotlinFrontend {
-
     downloadNodeJsVersion = "latest"
 
     npm {
@@ -44,6 +42,5 @@ kotlinFrontend {
         bundleName = "ktjs_example04"
         mode = "development"
     }
-
 }
 

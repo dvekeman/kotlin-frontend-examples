@@ -1,5 +1,9 @@
 # Kotlin JS Examples
 
+**Gradle Groovy vs Gradle Kotlin DSL**
+
+**The master branch uses Kotlin DSL for gradle. The Groovy equivalent can be found on the `gradle_groovy` branch (but will not be further updated)**
+
 This repository shows how to interop between JavaScript and KotlinJS using different module systems.
 The examples can be opened in a browser and don't require any server runtime (like NodeJs).
 
@@ -11,21 +15,61 @@ course in the way they invoke the kotlin-generated JavaScript.
 They all use the `kotlin2js` gradle plugin
 
 ```
-apply plugin: 'kotlin2js'
+plugins {
+    id("kotlin2js") version "1.3.21"
+}
 ```
 
 The configuration is pretty straighforward
 
 ```
-compileKotlin2Js {
-    kotlinOptions.outputFile = "$project.buildDir.path/js/<name>.js"
-    kotlinOptions.moduleKind = "<plain | amd | umd>"
-    kotlinOptions.metaInfo = true
-    kotlinOptions.sourceMap = true
+tasks {
+    "compileKotlin2Js"(Kotlin2JsCompile::class) {
+        kotlinOptions {
+            outputFile = "${project.buildDir.path}/js/<name>.js"
+            moduleKind = "< plain | amd | umd >"
+            metaInfo = true
+            sourceMap = true
+            main = "call"
+        }
+    }
 }
 ```
 
-To run the examples
+**Important remarks for the Kotlin Gradle DSL**
+
+The plugin resolution is defined in the **settings.gradle.kts**:
+
+```
+pluginManagement {
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        gradlePluginPortal()
+        maven {
+            url = uri("https://dl.bintray.com/kotlin/kotlin-eap")
+        }
+
+    }
+
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == "kotlin2js") {
+                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
+            }
+
+            if (requested.id.id == "org.jetbrains.kotlin.frontend") {
+                useModule("org.jetbrains.kotlin:kotlin-frontend-plugin:${requested.version}")
+            }
+        }
+    }
+}
+```
+
+The `kotlin2js` part is required for all examples. The `org.jetbrains.kotlin.frontend` case is only needed for example 4.
+
+To run the examples:
 
 ```
 ./gradlew <example>:build
@@ -118,8 +162,13 @@ We don't need to call the `main` function manually! Whenever our JS is loaded, t
 Note that if you **don't want main to be called** you can turn this off using the [`KotlinJsOptions`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/main/kotlin/org/jetbrains/kotlin/gradle/dsl/KotlinJsOptions.kt):
 
 ```
-compileKotlin2Js {
-    kotlinOptions.main = "noCall" //If you don't want main to be called 
+tasks {
+    "compileKotlin2Js"(Kotlin2JsCompile::class) {
+        kotlinOptions {
+            ...
+            main = "noCall"
+        }
+    }
 }
 ```
 
@@ -203,10 +252,14 @@ In this example we'll even combine them!
 First we change the Kotlin compilation options to use `umd`:
 
 ```
-compileKotlin2Js {
-    kotlinOptions.outputFile = "$project.buildDir.path/js/ktjs_example03.js"
-    kotlinOptions.moduleKind = "umd"
-    ...
+tasks {
+    "compileKotlin2Js"(Kotlin2JsCompile::class) {
+        kotlinOptions {
+            outputFile = "${project.buildDir.path}/js/ktjs_example03.js"
+            moduleKind = "umd"
+            ...
+        }
+    }
 }
 ```
 
@@ -291,34 +344,40 @@ The Kotlin community also has an additional plugin for gradle called `kotlin-fro
 First the plugin needs to be applied (note that the `kotlin2js` plugin is also still applied **before** the frontend plugin) 
 and it adds a new configuration called `kotlinFrontend`.
 
-**build.gradle**
+**build.gradle.kts**
 
 ```
 ...
 
-apply plugin: 'kotlin2js'
-apply plugin: 'org.jetbrains.kotlin.frontend'
-
+plugins {
+    id("kotlin2js") version "1.3.21"
+    // id("kotlin-dce-js") version "1.3.21" // Dead code elimination. Advised but turned off for this example
+    id("org.jetbrains.kotlin.frontend") version "0.0.45"
+}
 ...
 
-compileKotlin2Js {
-    ...
+tasks {
+    "compileKotlin2Js"(Kotlin2JsCompile::class) {
+        kotlinOptions {
+            ...
+        }
+    }
 }
 
 kotlinFrontend {
-
     downloadNodeJsVersion = "latest"
 
     npm {
-        dependency "style-loader"
+        dependency("style-loader")
     }
 
-    webpackBundle {
+    bundle<WebPackExtension>("webpack") {
+        this as WebPackExtension
         bundleName = "ktjs_example04"
-        mode = 'development'
+        mode = "development"
     }
-
 }
+
 ```
 
 The gradle plugin also requires a (potentially empty) directory called `webpack.config.d`. 
