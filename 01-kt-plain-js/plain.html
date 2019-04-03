@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example 01 - Plain</title>
+    <script type="text/javascript" src="./scripts/kotlin.js"></script>
+    <script type="text/javascript" src="build/js/ktjs_example01.js"></script>
+</head>
+<body>
+
+<div><span>Access a function in the root: </span><div id="foobar"></div></div>
+<script>
+    document.getElementById("foobar").innerText = ktjs_example01.bar();
+</script>
+
+<br>
+
+<div><span>Access a function within a package: </span><div id="foobar2"></div></div>
+<script>
+    document.getElementById("foobar2").innerText = ktjs_example01.foopkg.bar();
+</script>
+
+<br>
+
+<div><span>Access a function in the global scope: </span><div id="foobar3"></div></div>
+<script>
+    document.getElementById("foobar3").innerText = bar();
+</script>
+
+</body>
+</html>

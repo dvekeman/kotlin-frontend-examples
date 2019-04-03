@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example 04 - Frontend plugin</title>
+    <script type="text/javascript" src="./scripts/kotlin.js"></script>
+    <script type="text/javascript" src="build/bundle/ktjs_example04.bundle.js"></script>
+
+    <!-- Important: load this after the plain js (scripts/kotlin.js and build/js/ktsj_example03.js -->
+    <script data-main="./scripts/main.js"  src="./scripts/require.js"></script>
+</head>
+<body>
+
+<h4>Plain</h4>
+
+<div><span>Plain: Access a function in the root: </span><div id="plainfoobar"></div></div>
+<script>
+    document.getElementById("plainfoobar").innerText = ktjs_example04_lib.bar();
+</script>
+
+<br>
+
+<div><span>Plain: Access a function within a package: </span><div id="plainfoobar2"></div></div>
+<script>
+    document.getElementById("plainfoobar2").innerText = ktjs_example04_lib.foopkg.bar();
+</script>
+
+<br>
+
+<div><span>Plain: Access a function in the global scope: </span><div id="plainfoobar3"></div></div>
+<script>
+    document.getElementById("plainfoobar3").innerText = bar();
+</script>
+
+<h4>AMD</h4>
+
+<div><span>AMD: Access a function in the root: </span><div id="amdfoobar"></div></div>
+<script>
+    // see scripts/main.js
+</script>
+
+<br>
+
+<div><span>AMD: Access a function within a package: </span><div id="amdfoobar2"></div></div>
+<script>
+    // see scripts/main.js
+</script>
+
+<br>
+
+<div><span>AMD: Access a function in the global scope: </span><div id="amdfoobar3"></div></div>
+<script>
+    // see scripts/main.js
+</script>
+
+</body>
+</html>
