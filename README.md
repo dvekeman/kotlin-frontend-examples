@@ -106,6 +106,10 @@ fun main(args: Array<String>) {
 
     window.asDynamic().bar = barglobal
 }
+
+val barglobal = {
+    "bar (from global)"
+}
 ```
 
 We don't need to call the `main` function manually! Whenever our JS is loaded, the main function will be called. 
