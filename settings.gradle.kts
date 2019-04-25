@@ -4,6 +4,7 @@ include(":01-kt-plain-js")
 include(":02-kt-amd-js")
 include(":03-kt-umd-js")
 include(":04-kt-frontend")
+include(":05-kt-frontend-vaadin")
 
 pluginManagement {
 
