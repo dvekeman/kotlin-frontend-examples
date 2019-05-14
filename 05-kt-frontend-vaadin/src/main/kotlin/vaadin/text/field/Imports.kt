@@ -1,10 +1,10 @@
-@file:JsModule("@vaadin/vaadin-text-field")
+@file:JsModule("@vaadin/vaadin-text-field/src/vaadin-text-field")
 @file:JsNonModule
 
 package vaadin.text.field
 
-// abstract external class TextFieldElement : HTMLElement
+import org.w3c.dom.HTMLElement
 
-external class TextFieldElement {
-    companion object
+abstract external class TextFieldElement : HTMLElement {
+    var value: String = definedExternally
 }

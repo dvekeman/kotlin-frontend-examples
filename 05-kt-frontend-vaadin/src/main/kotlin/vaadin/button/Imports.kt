@@ -1,9 +1,8 @@
-@file:JsModule("@vaadin/vaadin-button")
+@file:JsModule("@vaadin/vaadin-button/src/vaadin-button")
 @file:JsNonModule
 
 package vaadin.button
 
-// abstract external class ButtonElement: HTMLElement
-external class ButtonElement {
-    companion object
-}
+import org.w3c.dom.HTMLElement
+
+abstract external class ButtonElement: HTMLElement

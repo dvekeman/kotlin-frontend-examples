@@ -1,10 +1,10 @@
-@file:JsModule("@vaadin/vaadin-grid")
+@file:JsModule("@vaadin/vaadin-grid/src/vaadin-grid")
 @file:JsNonModule
 
 package vaadin.grid
 
-// abstract external class GridElement : HTMLElement
+import org.w3c.dom.HTMLElement
 
-external class GridElement {
-    companion object
+abstract external class GridElement<T> : HTMLElement {
+    var items: Array<out T> = definedExternally
 }

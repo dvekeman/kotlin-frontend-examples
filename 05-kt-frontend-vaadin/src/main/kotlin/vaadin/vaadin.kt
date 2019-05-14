@@ -1,4 +1,4 @@
-package com.agilent.vaadin
+package vaadin
 
 import kotlinx.html.*
 

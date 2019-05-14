@@ -2,18 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Example 04 - Frontend plugin</title>
-
-    <script data-main="./scripts/main.js"  src="./scripts/require.js"></script>
-
-    <!-- Vaadin Web Components >> -->
-    <script src="scripts/webcomponents/webcomponents-loader.js"></script>
-    <script>
-      if (!window.customElements) { document.write('<!--'); }
-    </script>
-    <script src="scripts/webcomponents/custom-elements-es5-adapter.js"></script>
-    <!-- ! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
-    <!-- << Vaadin Web Components -->
+    <title>Example 05 - Vaadin Elements</title>
 
 </head>
 <body>
@@ -21,6 +10,8 @@
 <h4>Vaadin Elements</h4>
 
 <div id="container"></div>
+<!-- main function depends on existence of document.body... -->
+<script type="text/javascript" src="build/bundle/ktjs_example05.bundle.js"></script>
 
 </body>
 </html>
